@@ -33,7 +33,7 @@ void Screen_Init()
 
     system("mode con:cols=108 lines=96");
     SetFontSize(8);
-    SetConsoleTitle("Infinite Stair");
+    SetConsoleTitle(TEXT("무한의 계단"));
 
     //화면 버퍼 2개를 만든다.
     g_hScreen[0] = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE,
