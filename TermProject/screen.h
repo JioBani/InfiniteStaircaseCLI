@@ -1,7 +1,6 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
-
 void SetFontSize(int size);
 
 void Screen_Init();

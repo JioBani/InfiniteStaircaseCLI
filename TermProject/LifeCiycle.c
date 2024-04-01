@@ -17,22 +17,22 @@
 #define _Color_SkyBlue_ "BB"
 #define _Color_Green_ "22"
 
-#define _stairsAmount_ 25 // °è´Ü °¹¼ö
-#define _wayChangeProperty_ 4 // °è´ÜÀÇ ¹æÇâÀÌ ¹Ù²î´Â ºóµµ 
-#define _maxTime_ 10000 // ÃÊ±â Á¦ÇÑ½Ã°£
+#define _stairsAmount_ 25 // ê³„ë‹¨ ê°¯ìˆ˜
+#define _wayChangeProperty_ 4 // ê³„ë‹¨ì˜ ë°©í–¥ì´ ë°”ë€ŒëŠ” ë¹ˆë„ 
+#define _maxTime_ 10000 // ì´ˆê¸° ì œí•œì‹œê°„
 #define _startX_ SCREEN_WIDTH / 2
 #define _startY_ 92
 #define _cloudAmount_ 10
 
-object objects_stairs[_stairsAmount_]; //°è´Ü
-object objects_clouds[_cloudAmount_]; //±¸¸§
-object object_player; //ÇÃ·¹ÀÌ¾î
-object object_sun; //ÅÂ¾ç
-object object_balloon; //Ç³¼±
+object objects_stairs[_stairsAmount_]; //ê³„ë‹¨
+object objects_clouds[_cloudAmount_]; //êµ¬ë¦„
+object object_player; //í”Œë ˆì´ì–´
+object object_sun; //íƒœì–‘
+object object_balloon; //í’ì„ 
 
-object object_PRESS_R; //±ÛÀÚ : PRESS R
-object object_TO_RESTART; // ±ÛÀÚ : TO RESTART
-object object_SCORE_Colon; // ±ÛÀÚ : SCORE :
+object object_PRESS_R; //ê¸€ì : PRESS R
+object object_TO_RESTART; // ê¸€ì : TO RESTART
+object object_SCORE_Colon; // ê¸€ì : SCORE :
 
 object object_GO;
 object object_UP_EXEX;
@@ -45,37 +45,37 @@ object object_SPACE;
 
 object object_timer;
 
-NumberObject numberObject_score; // ÀÎ°ÔÀÓ Á¡¼ö
-NumberObject numberObject_overScore; // °ÔÀÓ ¿À¹ö Á¡¼ö
+NumberObject numberObject_score; // ì¸ê²Œì„ ì ìˆ˜
+NumberObject numberObject_overScore; // ê²Œì„ ì˜¤ë²„ ì ìˆ˜
 
 RenderInfo playerSprites[2];
 RenderInfo playerUpSprites[2];
 RenderInfo cloudsSprites[6];
 
-Timer timer_gameOver; //°ÔÀÓ ¿À¹ö ·çÆ¾ ½Ã°£
-Timer timer_playerDrop; //ÇÃ·¹ÀÌ¾î ¶³¾îÁö´Â ¾Ö´Ï¸ÅÀÌ¼Ç ½Ã°£
-Timer timer_leftTime; // °è´ÜÀ» ¿Ã¶ó°¡¾ßÇÏ´Â ³²Àº ½Ã°£
-Timer timer_playerUp; // °è´ÜÀ» ¿Ã¶ó°¡´Â ¾Ö´Ï¸ÅÀÌ¼Ç ½Ã°£
+Timer timer_gameOver; //ê²Œì„ ì˜¤ë²„ ë£¨í‹´ ì‹œê°„
+Timer timer_playerDrop; //í”Œë ˆì´ì–´ ë–¨ì–´ì§€ëŠ” ì• ë‹ˆë§¤ì´ì…˜ ì‹œê°„
+Timer timer_leftTime; // ê³„ë‹¨ì„ ì˜¬ë¼ê°€ì•¼í•˜ëŠ” ë‚¨ì€ ì‹œê°„
+Timer timer_playerUp; // ê³„ë‹¨ì„ ì˜¬ë¼ê°€ëŠ” ì• ë‹ˆë§¤ì´ì…˜ ì‹œê°„
 Timer timer_BallonMove;
 Timer timer_BirdMove;
 
-//°ÔÀÓ »óÅÂ
+//ê²Œì„ ìƒíƒœ
 enum GameState {
-	state_inGame = 0, //ÀÎ°ÔÀÓ
-	state_gameOver = 1, //°ÔÀÓ ¿À¹ö
-	state_beforeStart = 2, //°ÔÀÓ ¿À¹öÈÄ ´Ù½Ã½ÃÀÛÇÏ±â Àü
-	state_FirstStart = 3, //r°ÔÀÓ Ã³À½½ÃÀÛÇÒ¶§
+	state_inGame = 0, //ì¸ê²Œì„
+	state_gameOver = 1, //ê²Œì„ ì˜¤ë²„
+	state_beforeStart = 2, //ê²Œì„ ì˜¤ë²„í›„ ë‹¤ì‹œì‹œì‘í•˜ê¸° ì „
+	state_FirstStart = 3, //rê²Œì„ ì²˜ìŒì‹œì‘í• ë•Œ
 };
 
-enum GameState gameState = state_FirstStart; // °ÔÀÓ»óÅÂ
+enum GameState gameState = state_FirstStart; // ê²Œì„ìƒíƒœ
 
-int score; //Á¡¼ö
-int topStairIndex; //°¡Àå À§¿¡ÀÖ´Â °è´Ü index
-int stdStairIndex; //±âÁØ °è´Ü index
-int buildWay = 1; //°è´ÜÀ» ½×À» ¹æÇâ
-int playerSpriteIndex = 0; //ÇÃ·¹ÀÌ¾î ½ºÇÁ¶óÀÌÆ® ÀÎµ¦½º
-int playerWay = -1; // ÇÃ·¹ÀÌ¾î°¡ ¹Ù¶óº¸´Â ¹æÇâ , -1 : ¿ŞÂÊ
-int isOnUpAnime = 0; // °è´ÜÀ» ¿Ã¶ó°¡´Â ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ½ÇÇàÁßÀÎÁö
+int score; //ì ìˆ˜
+int topStairIndex; //ê°€ì¥ ìœ„ì—ìˆëŠ” ê³„ë‹¨ index
+int stdStairIndex; //ê¸°ì¤€ ê³„ë‹¨ index
+int buildWay = 1; //ê³„ë‹¨ì„ ìŒ“ì„ ë°©í–¥
+int playerSpriteIndex = 0; //í”Œë ˆì´ì–´ ìŠ¤í”„ë¼ì´íŠ¸ ì¸ë±ìŠ¤
+int playerWay = -1; // í”Œë ˆì´ì–´ê°€ ë°”ë¼ë³´ëŠ” ë°©í–¥ , -1 : ì™¼ìª½
+int isOnUpAnime = 0; // ê³„ë‹¨ì„ ì˜¬ë¼ê°€ëŠ” ì• ë‹ˆë©”ì´ì…˜ì´ ì‹¤í–‰ì¤‘ì¸ì§€
 int scoreOfStair0 = 1;
 
 void OnEnd();
@@ -117,8 +117,8 @@ void OnAwake() {
 void OnStart() {
 
 
-	// ============ ¿ÀºêÁ§Æ® »ı¼º ==============
-	for (int i = 0; i < _stairsAmount_; i++) //°è´Ü »ı¼º
+	// ============ ì˜¤ë¸Œì íŠ¸ ìƒì„± ==============
+	for (int i = 0; i < _stairsAmount_; i++) //ê³„ë‹¨ ìƒì„±
 		objects_stairs[i] = Object_Make(renderinfo_bigStair);
 	object_player = Object_Make(renderinfo_playerLeft);
 
@@ -156,7 +156,7 @@ void OnStart() {
 	timer_BallonMove = Timer_Make(200);
 	timer_BirdMove = Timer_Make(200);
 
-	//  ============ ¿ÀºêÁ§Æ® ¼³Á¤ ==============
+	//  ============ ì˜¤ë¸Œì íŠ¸ ì„¤ì • ==============
 
 	for (int i = 0; i < _cloudAmount_; i++) {
 		int k = rand() % 6;
@@ -197,7 +197,7 @@ void Update() {
 		if (Timer_IsTimeUp(&timer_leftTime))
 			GameOver();	
 		if (Timer_IsTimeUp(&timer_BallonMove) && object_balloon.renderinfo.enable == 1) {
-			Object_Move(&object_balloon, 0, -10);
+			Object_Move(&object_balloon, 0, -5);
 			Timer_Reset(&timer_BallonMove);
 		}
 
@@ -246,7 +246,7 @@ void KeyProcess(char _ch) {
 		switch (_ch)
 		{
 
-		case 'w': // À§·Î ¿À¸£±â
+		case 'w': // ìœ„ë¡œ ì˜¤ë¥´ê¸°
 		{
 			if (objects_stairs[Mod(_stairsAmount_, stdStairIndex + 1)].postion.x -
 				objects_stairs[stdStairIndex].postion.x == playerWay * 16) {
@@ -264,7 +264,7 @@ void KeyProcess(char _ch) {
 			break;
 		}
 
-		case 32: // ½ºÆäÀÌ½º¹Ù : ¹æÇâ ¹Ù²Ù¸é¼­ ¿À¸£±â
+		case 32: // ìŠ¤í˜ì´ìŠ¤ë°” : ë°©í–¥ ë°”ê¾¸ë©´ì„œ ì˜¤ë¥´ê¸°
 		{
 			playerSpriteIndex = !playerSpriteIndex;
 			Object_SetRenderInfo(&object_player, playerSprites[playerSpriteIndex]);
@@ -285,7 +285,7 @@ void KeyProcess(char _ch) {
 			break;
 		}
 
-		case 'd': // ÀÚµ¿À¸·Î ¿Ã¶ó°¡±â
+		case 'd': // ìë™ìœ¼ë¡œ ì˜¬ë¼ê°€ê¸°
 			if (objects_stairs[Mod(_stairsAmount_, stdStairIndex + 1)].postion.x -
 				objects_stairs[stdStairIndex].postion.x == playerWay * 16)
 			{			
@@ -413,9 +413,14 @@ void Render() {
 
 	case state_gameOver:
 	{
+		Object_Print(&object_sun);
+		for (int i = 0; i < _cloudAmount_; i++) {
+			Object_Print(&objects_clouds[i]);
+		}
 		for (int i = 0; i < _stairsAmount_; i++)
 			Object_Print(&objects_stairs[i]);
 		Object_Print(&object_player);
+		Object_Print(&object_balloon);
 		NumberObject_Print(&numberObject_score);
 	}
 	break;
@@ -447,7 +452,7 @@ void Render() {
 }
 
 
-//°è´Ü ½×±â
+//ê³„ë‹¨ ìŒ“ê¸°
 void BuildStair(int index) {
 
 	if (!(rand() % _wayChangeProperty_)) buildWay *= -1;
@@ -458,7 +463,7 @@ void BuildStair(int index) {
 	topStairIndex = Mod(_stairsAmount_, topStairIndex + 1);	
 }
 
-// ¸ğµâ·¯ ¿¬»ê
+// ëª¨ë“ˆëŸ¬ ì—°ì‚°
 int Mod(int n, int x) {
 	if (n <= 0) return 0;
 	else if (x < 0) {
@@ -469,26 +474,26 @@ int Mod(int n, int x) {
 	}
 }
 
-// °è´Ü ¿Ã¶ó°¡±â
+// ê³„ë‹¨ ì˜¬ë¼ê°€ê¸°
 void StairUp() {
 	int moveX = 0;
 	if (score > 9) {
-		BuildStair(Mod(_stairsAmount_, topStairIndex + 1)); //Á¡¼ö°¡ 10º¸´Ù Å¬¶§¸¸ ½×±â
+		BuildStair(Mod(_stairsAmount_, topStairIndex + 1)); //ì ìˆ˜ê°€ 10ë³´ë‹¤ í´ë•Œë§Œ ìŒ“ê¸°
 	}
 
-	stdStairIndex = Mod(_stairsAmount_, stdStairIndex + 1); // ±âÁØ °è´Ü + 1
+	stdStairIndex = Mod(_stairsAmount_, stdStairIndex + 1); // ê¸°ì¤€ ê³„ë‹¨ + 1
 
-	//Ä«¸Ş¶ó À§Ä¡ °è»ê
+	//ì¹´ë©”ë¼ ìœ„ì¹˜ ê³„ì‚°
 	moveX = objects_stairs[Mod(_stairsAmount_, stdStairIndex - 1)].postion.x
 		- objects_stairs[stdStairIndex].postion.x;
 
 	if (score <= 10) {
-		for (int i = 0; i < _stairsAmount_; i++) // ±âÁØ °è´ÜÀ¸·Î Ä«¸Ş¶ó °íÁ¤
+		for (int i = 0; i < _stairsAmount_; i++) // ê¸°ì¤€ ê³„ë‹¨ìœ¼ë¡œ ì¹´ë©”ë¼ ê³ ì •
 			Object_Move(&objects_stairs[i], moveX, 0);
 		Object_Move(&object_player, 0, -4);
 	}
 	else {
-		for (int i = 0; i < _stairsAmount_; i++) // ±âÁØ °è´ÜÀ¸·Î Ä«¸Ş¶ó °íÁ¤
+		for (int i = 0; i < _stairsAmount_; i++) // ê¸°ì¤€ ê³„ë‹¨ìœ¼ë¡œ ì¹´ë©”ë¼ ê³ ì •
 			Object_Move(&objects_stairs[i], moveX, 4);
 	}
 		
@@ -497,7 +502,7 @@ void StairUp() {
 	score++;
 }
 
-// °è´ÜÀ» ¿Ã¶ó°£ ÈÄ
+// ê³„ë‹¨ì„ ì˜¬ë¼ê°„ í›„
 void OnStairUp() {
 	Timer_AddTime(&timer_leftTime, 1000);
 	if (Timer_GetMaxTime(&timer_leftTime) > 100) {
@@ -523,7 +528,7 @@ void OnStairUp() {
 	}		//Object_Move(&object_sun,0,1);
 }
 
-// °ÔÀÓ ½ÃÀÛ ¼¼ÆÃ
+// ê²Œì„ ì‹œì‘ ì„¸íŒ…
 void SetGameStart() {
 	gameState = state_inGame;
 	score = 0;
@@ -538,7 +543,7 @@ void SetGameStart() {
 	stdStairIndex = 0;
 	topStairIndex = 1;
 
-	for (int i = 2; i < _stairsAmount_; i++) //°è´Ü »ı¼º
+	for (int i = 2; i < _stairsAmount_; i++) //ê³„ë‹¨ ìƒì„±
 		BuildStair(i);
 
 	Object_SetRenderInfo(&object_player, playerSprites[playerSpriteIndex]);
@@ -551,7 +556,7 @@ void SetGameStart() {
 	numberObject_score = NumberObject_Make(0, SCREEN_WIDTH / 2 - 2, 8);
 }
 
-//°ÔÀÓ ¿À¹ö‰çÀ»¶§
+//ê²Œì„ ì˜¤ë²„ë¬ì„ë•Œ
 void GameOver() {
 	gameState = state_gameOver;
 	Render();
@@ -563,7 +568,7 @@ void GameOver() {
 	Timer_Reset(&timer_leftTime);
 }
 
-//°ÔÀÓ Àç½ÃÀÛ ´ë±â »óÅÂ·Î ¸¸µé±â
+//ê²Œì„ ì¬ì‹œì‘ ëŒ€ê¸° ìƒíƒœë¡œ ë§Œë“¤ê¸°
 void WaitRestart() {
 	NumberObject_ChangePostion(&numberObject_overScore, 80, 22);
 	NumberObject_SetValue(&numberObject_overScore,score);

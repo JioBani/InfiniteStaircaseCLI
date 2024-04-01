@@ -9,13 +9,15 @@
 #include "screen.h"
 
 #define _waitTime_ 0
+
 int main()
 {
+    char ch;
+
     Screen_Init();
 
     OnAwake();
-    OnStart();
-    char ch;
+    OnStart();   
 
     while (1)
     {

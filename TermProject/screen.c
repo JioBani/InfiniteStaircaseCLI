@@ -24,6 +24,15 @@ void SetFontSize(int size) {
     SetCurrentConsoleFontEx(hConsole, FALSE, &fontInfo);
 }
 
+void SetConsoleBufferSize(int x, int y) {
+    COORD newSize;
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    newSize.X = x; 
+    newSize.Y = y;
+
+    SetConsoleScreenBufferSize(hConsole, newSize);
+}
 
 void Screen_Init()
 {
@@ -32,15 +41,15 @@ void Screen_Init()
     DWORD dw;
 
     system("mode con:cols=108 lines=96");
-    SetFontSize(8);
-    SetConsoleTitle(TEXT("π´«—¿« ∞Ë¥‹"));
 
-    //»≠∏È πˆ∆€ 2∞≥∏¶ ∏∏µÁ¥Ÿ.
+    SetFontSize(8);
+
+    //ÌôîÎ©¥ Î≤ÑÌçº 2Í∞úÎ•º ÎßåÎì†Îã§.
     g_hScreen[0] = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE,
         0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
     g_hScreen[1] = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE,
         0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
-    //ƒøº≠ º˚±‚±‚
+    //Ïª§ÏÑú Ïà®Í∏∞Í∏∞
     cursorInfo.dwSize = 1;
     cursorInfo.bVisible = FALSE;
     SetConsoleCursorInfo(g_hScreen[0], &cursorInfo);
@@ -80,7 +89,7 @@ void Screen_SetColor(int color)
     SetConsoleTextAttribute(g_hScreen[g_nScreenIndex], color);
 }
 
-void Screen_CursorOff() { // ƒøº≠∏¶ æ»∫∏¿Ã∞‘ «—¥Ÿ
+void Screen_CursorOff() { // Ïª§ÏÑúÎ•º ÏïàÎ≥¥Ïù¥Í≤å ÌïúÎã§
     CONSOLE_CURSOR_INFO cursorInfo;
 
     cursorInfo.bVisible = 0;
@@ -88,7 +97,7 @@ void Screen_CursorOff() { // ƒøº≠∏¶ æ»∫∏¿Ã∞‘ «—¥Ÿ
     SetConsoleCursorInfo(g_hScreen[1], &cursorInfo);
 }
 
-void Screen_CursorOn() { // ƒøº≠∏¶ ∫∏¿Ã∞‘ «—¥Ÿ
+void Screen_CursorOn() { // Ïª§ÏÑúÎ•º Î≥¥Ïù¥Í≤å ÌïúÎã§
     CONSOLE_CURSOR_INFO cursorInfo;
 
     cursorInfo.bVisible = 1;
