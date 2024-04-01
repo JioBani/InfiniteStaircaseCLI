@@ -24,6 +24,7 @@
     <ProjectGuid>{c90cacb9-62d9-450f-aac3-53407cc2cae1}</ProjectGuid>
     <RootNamespace>TermProject</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>InfiniteStaircaseCLI</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
